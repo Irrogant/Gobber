@@ -1,0 +1,83 @@
+li a { 
+    color: blueviolet;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    color: white;
+}
+
+header {
+    color: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 181, 181);
+    background-image: url("/static/images/inside_cave.jpg");
+    /* to remove scrollbar add hidden*/
+    overflow: auto;
+}
+
+/* Sidebars */
+
+.leftSidebar {
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-top: 40px;
+}
+
+.rightSidebar {
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-top: 40px;
+}
+
+/* Form */
+
+textArea {
+    width: 99.5%;
+    resize: none;
+}
+
+/* Chatbox */
+
+.chatList {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.chatBox {
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color:rgb(32, 32, 32);
+    padding: 20px 20px;
+}
+
+.chatMessage {
+    background-color: white;
+    box-shadow: 0 0 10px 5px rgb(73, 73, 73);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 30px;
+
+    word-wrap: break-word;
+}
+
+.chatButton {
+    margin-top: 5px;
+    text-align: right;
+}
+
+

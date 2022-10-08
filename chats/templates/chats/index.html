@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Gobber</title>
+    <link rel="favicon" href="/static/facivon.ico">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href={% static 'chats/style.css' %}>
+</head>
+</body>
+
+<div>
+    
+    <h1>GOBBLER</h1>
+
+</div>
+
+<div class="leftSidebar">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+</div>
+
+
+<div class="rightSidebar">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+</div>
+
+<div class="chatBox">
+
+    TODO: also add date
+    <div>
+    {% if messageList %}
+        <ul class="chatList">
+        {% for message in messageList %}
+            <li class="chatMessage"><a href="{% url 'chats:detail' message.id %}"> {{message.message_text}} </a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No chats are available.</p>
+    {% endif %}
+
+    </div>
+
+    <div>
+        <h2>let out your inner Goblin...</h2>
+        <!-- when button is clicked, data is posted-->
+        <form action="{% url 'chats:addChat' %}" method="post">
+            {% csrf_token %}
+                {{ form }}
+            <div class="chatButton">
+                <input  type="submit" value="Send"> 
+            </div>
+        </form>
+    </div>
+    
+</div>
+</body>
+</html>
+
