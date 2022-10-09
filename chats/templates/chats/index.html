@@ -11,7 +11,7 @@
 
 <div>
     
-    <h1>GOBBLER</h1>
+    <h1>GOBBER</h1>
 
 </div>
 
@@ -30,24 +30,10 @@
     <img src="/static/images/goblinwalk.gif">
 </div>
 
-<div class="chatBox">
-
-    TODO: also add date
-    <div>
-    {% if messageList %}
-        <ul class="chatList">
-        {% for message in messageList %}
-            <li class="chatMessage"><a href="{% url 'chats:detail' message.id %}"> {{message.message_text}} </a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No chats are available.</p>
-    {% endif %}
-
-    </div>
+<div class="chatField">
 
     <div>
-        <h2>let out your inner Goblin...</h2>
+        <h2>What's on your mind, fellow Goblin?</h2>
         <!-- when button is clicked, data is posted-->
         <form action="{% url 'chats:addChat' %}" method="post">
             {% csrf_token %}
@@ -56,6 +42,23 @@
                 <input  type="submit" value="Send"> 
             </div>
         </form>
+    </div>
+
+
+    <div>
+    {% if messageList %}
+        <ul class="chatList">
+        {% for message in messageList %}
+            <div class = "chatBox">
+                <li class="chatTime"> {{message.pub_date}} </li>
+                <li class="chatMessage"><a href="{% url 'chats:detail' message.id %}"> {{message.message_text}} </a></li>
+            </div>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No chats are available.</p>
+    {% endif %}
+
     </div>
     
 </div>

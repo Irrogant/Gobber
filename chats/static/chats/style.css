@@ -58,21 +58,29 @@ textArea {
     padding-left: 0;
 }
 
-.chatBox {
+.chatField {
     margin-left: 150px;
     margin-right: 150px;
     background-color:rgb(32, 32, 32);
     padding: 20px 20px;
 }
 
-.chatMessage {
+.chatBox {
     background-color: white;
     box-shadow: 0 0 10px 5px rgb(73, 73, 73);
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 30px;
+}
 
+.chatMessage {
+    padding: 10px 30px 30px 30px;
     word-wrap: break-word;
+}
+
+.chatTime {
+    color: rgb(168, 168, 168);
+    padding: 2px 2px 0 0 ;
+    text-align: right;
 }
 
 .chatButton {
