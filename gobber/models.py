@@ -26,3 +26,10 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class AccessKey(models.Model):
+    key = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.key 
+    #TODO: lägga __str här = flaw? cus then can see key

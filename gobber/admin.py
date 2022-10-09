@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Choice, Message
+from .models import Choice, Message, AccessKey
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
@@ -16,5 +16,12 @@ class MessageAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['message_text']
 
+class AccessKeyAdmin(admin.ModelAdmin):
+    model = AccessKey
+    fieldsets = [
+        ('Key',      {'fields': ['key']}),
+    ]
+
 
 admin.site.register(Message, MessageAdmin)
+admin.site.register(AccessKey)

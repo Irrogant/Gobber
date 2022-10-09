@@ -3,7 +3,7 @@ from pdb import post_mortem
 from django import forms
 
 from django.forms import ModelForm
-from gobber.models import Message
+from gobber.models import AccessKey, Message
 
 class MessageForm(ModelForm):
     #Making the input field larger
@@ -26,4 +26,19 @@ class MessageForm(ModelForm):
 
         labels = {
             'message_text': '',
+        }
+
+class AccessForm(ModelForm):
+
+    class Meta:
+        model = AccessKey
+
+        fields = ['key']
+
+        widgets = {
+            'key': forms.PasswordInput(),
+        }
+        
+        labels = {
+            'key': '',
         }

@@ -7,12 +7,23 @@ body {
     background-color: black;
 }
 
+.middleField {
+    padding: 20px 20px;
+    text-align: center;
+}
+
 .cave {
-    padding: 10px 10px 10px 0;
     height: 80vh;
+    background-size: 450px;
     background-image: url("/static/images/entrance_cave.png");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 45%; 
-  
+}
+
+.goblin {
+    padding: 440px 0 0 0;
+}
+
+.sendButton {
+    margin: 5px;
 }

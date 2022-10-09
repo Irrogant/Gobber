@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
-from .models import Choice, Message
-from .forms import MessageForm
+from .models import Choice, Message, AccessKey
+from .forms import MessageForm, AccessForm
 
 class IndexView(generic.ListView):
     #context_object_name provides which name to use for the list in the chosen template html
@@ -30,7 +30,22 @@ class ResultsView(generic.DeleteView):
 
 def access(request):
 
-    #ask for password
+    if request.method == "POST":
+        form = AccessForm(request.POST)
+        print('posted:', request.POST.get('key'), type(request.POST.get('key')))
+        print('key', AccessKey.objects.first(), type(AccessKey.objects.first().__str__))
+    
+        
+        #TODO: fix actual compare keys
+        if (request.POST.get('key')==AccessKey.objects.first()):
+            print('yo')
+            return HttpResponseRedirect(reverse('gobber:chats'))
+        else:
+            print('fail')
+            return HttpResponseRedirect(reverse('gobber:access'))
+    else:
+        form = AccessForm()
+    return render(request, 'gobber/access.html', {'form':form})
 
     #if password == correct
         #return gobbler/chats
@@ -42,15 +57,17 @@ def access(request):
 
 def chats(request):
     print('post data is:', request.POST)
+    print('uägh', request.POST.get('message_text'))
     messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
     
     if request.method == "POST":
         #takes in form data and checks if it is valid
         form = MessageForm(request.POST)
+        #TODO: what if invalid
         if form.is_valid():
             # Save to DB
             form.save()
-            # Refres page
+            # Refresh page
             return HttpResponseRedirect(reverse('gobber:chats'))
     else:
         form = MessageForm()

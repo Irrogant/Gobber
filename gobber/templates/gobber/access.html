@@ -10,13 +10,21 @@
 
 <body>
 
-<div>
-    
-    <h1>Gobber</h1>
+<div class="middleField">
+
+    <div class="cave">
+        <img class="goblin" src="/static/images/goblinguard.gif">
+    </div> 
+
+    <form action="{% url 'gobber:access' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="sendButton">
+            <input  type="submit" value="Whisper"> 
+        </div>
+    </form>
 
 </div>
-
-<div class="cave"> </div>
 
 
 </body>
