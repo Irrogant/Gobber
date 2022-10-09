@@ -5,7 +5,7 @@
     <title>Gobber</title>
     <link rel="favicon" href="/static/facivon.ico">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href={% static 'chats/style.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'gobber/style.css' %}>
 </head>
 </body>
 
@@ -35,7 +35,7 @@
     <div>
         <h2>What's on your mind, fellow Goblin?</h2>
         <!-- when button is clicked, data is posted-->
-        <form action="{% url 'chats:addChat' %}" method="post">
+        <form action="{% url 'gobber:addChat' %}" method="post">
             {% csrf_token %}
                 {{ form }}
             <div class="chatButton">
@@ -51,7 +51,7 @@
         {% for message in messageList %}
             <div class = "chatBox">
                 <li class="chatTime"> {{message.pub_date}} </li>
-                <li class="chatMessage"><a href="{% url 'chats:detail' message.id %}"> {{message.message_text}} </a></li>
+                <li class="chatMessage"><a href="{% url 'gobber:detail' message.id %}"> {{message.message_text}} </a></li>
             </div>
         {% endfor %}
         </ul>

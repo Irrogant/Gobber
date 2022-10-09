@@ -31,26 +31,26 @@ class MessageModelTests(TestCase):
 
 class MessageIndexViewTests(TestCase):
     def test_no_messages(self):
-        response = self.client.get(reverse('chats:index'))
+        response = self.client.get(reverse('gobber:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No chats are available.")
         self.assertQuerysetEqual(response.context['latest_message_list'], [])
 
     def test_past_message(self):
         past_message = create_message(message_text='Past Message.', days=-5)
-        url = reverse('chats:detail', args=(past_message.id,))
+        url = reverse('gobber:detail', args=(past_message.id,))
         response = self.client.get(url)
         self.assertContains(response, past_message.message_text)
 
     def test_future_message(self):
         future_message = create_message(message_text='Future message.', days=5)
-        url = reverse('chats:detail', args=(future_message.id,))
+        url = reverse('gobber:detail', args=(future_message.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
         
     def test_future_message_and_past_message(self):
         create_message(message_text="Past message.", days=-30)
         create_message(message_text="Future message.", days=30)
-        response = self.client.get(reverse('chats:index'))
+        response = self.client.get(reverse('gobber:index'))
         self.assertQuerysetEqual(response.context['latest_message_list'], ['<Message: Past message.>'])
 

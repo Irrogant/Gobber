@@ -3,7 +3,7 @@ from pdb import post_mortem
 from django import forms
 
 from django.forms import ModelForm
-from chats.models import Message
+from gobber.models import Message
 
 class MessageForm(ModelForm):
     #Making the input field larger

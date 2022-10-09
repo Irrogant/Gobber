@@ -9,7 +9,7 @@ from .forms import MessageForm
 
 class IndexView(generic.ListView):
     #context_object_name provides which name to use for the list in the chosen template html
-    template_name = 'chats/index.html'
+    template_name = 'gobber/index.html'
     context_object_name = 'latest_message_list'
 
     def get_queryset(self):
@@ -18,7 +18,7 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Message
-    template_name = 'chats/detail.html'
+    template_name = 'gobber/detail.html'
     
     def get_queryset(self):
         #TODO VULNERABILITY! remove access
@@ -26,7 +26,7 @@ class DetailView(generic.DetailView):
 
 class ResultsView(generic.DeleteView):
     model = Message
-    template_name = 'chats/results.html'
+    template_name = 'gobber/results.html'
 
 
 #update 'chats' name to gobber, addChats becomes /chats
@@ -56,12 +56,10 @@ def addChat(request):
             #message.pub_date = timezone.now()
             form.save()
             #refresh page
-            return HttpResponseRedirect(reverse('chats:addChat'))
+            return HttpResponseRedirect(reverse('gobber:addChat'))
     else:
         form = MessageForm()
-    #return HttpResponseRedirect(reverse('chats:index'))
-    return render(request, 'chats/index.html', {'messageList':messageList,'form': form})
-    #return render(request, 'chats/index.html', {'form': form})
+    return render(request, 'gobber/index.html', {'messageList':messageList,'form': form})
 
 
 def vote(request, message_id):
@@ -69,8 +67,8 @@ def vote(request, message_id):
     try:
         selected_choice = message.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
-        return render(request, 'chats/detail.html', {'message':message, 'error_message': "Select a CHOICE stuoidass"})
+        return render(request, 'gobber/detail.html', {'message':message, 'error_message': "Select a CHOICE stuoidass"})
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        return HttpResponseRedirect(reverse('chats:results',args=(message.id,)))
+        return HttpResponseRedirect(reverse('gobber:results',args=(message.id,)))
