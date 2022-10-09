@@ -1,9 +1,20 @@
-h1 {
+@font-face {
+    font-family: "PixelFont";
+    src: url("/static/fonts/04B_03__.TTF");
+ }
+ 
+ h1 {
     color: white;
+    font-size: 80px;
     text-align: center;
 }
 
+input {
+    font-family: "PixelFont";
+}
+
 body {
+    font-family: "PixelFont";
     background-color: black;
 }
 
@@ -12,16 +23,20 @@ body {
     text-align: center;
 }
 
+.keyField {
+    padding: 80px 0 0 0;
+}
+
 .cave {
-    height: 80vh;
-    background-size: 450px;
+    height: 50vh;
+    background-size: 500px;
     background-image: url("/static/images/entrance_cave.png");
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .goblin {
-    padding: 440px 0 0 0;
+    padding: 240px 0 0 0;
 }
 
 .sendButton {

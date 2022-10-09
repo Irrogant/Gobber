@@ -1,3 +1,8 @@
+ @font-face {
+    font-family: "PixelFont";
+    src: url("/static/fonts/04B_03__.TTF");
+ }
+
 li a { 
     color: blueviolet;
 }
@@ -15,7 +20,12 @@ header {
     color: white;
 }
 
+input {
+    font-family: "PixelFont";
+}
+
 body {
+    font-family: "PixelFont";
     height: 100vh;
     margin: 0;
     padding: 0;

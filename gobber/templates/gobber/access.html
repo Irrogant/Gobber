@@ -12,17 +12,21 @@
 
 <div class="middleField">
 
+    <h1>GOBBER</h1>
+
     <div class="cave">
         <img class="goblin" src="/static/images/goblinguard.gif">
     </div> 
 
-    <form action="{% url 'gobber:access' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <div class="sendButton">
-            <input  type="submit" value="Whisper"> 
-        </div>
-    </form>
+    <div class="keyField">
+        <form action="{% url 'gobber:access' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <div class="sendButton">
+                <input  type="submit" value="Whisper"> 
+            </div>
+        </form>
+    </div>
 
 </div>
 

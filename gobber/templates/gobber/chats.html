@@ -33,13 +33,13 @@
 <div class="chatField">
 
     <div>
-        <h2>What's on your mind, fellow Goblin?</h2>
+        <h2>GIBBER AND GABBER WITH OTHER GOBLINS</h2>
         <!-- when button is clicked, data is posted-->
         <form action="{% url 'gobber:chats' %}" method="post">
             {% csrf_token %}
                 {{ form }}
             <div class="chatButton">
-                <input  type="submit" value="Send"> 
+                <input type="submit" value="Send"> 
             </div>
         </form>
     </div>

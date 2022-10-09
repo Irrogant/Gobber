@@ -30,6 +30,6 @@ class Choice(models.Model):
 class AccessKey(models.Model):
     key = models.CharField(max_length=10)
 
+    #TODO prob should not exist
     def __str__(self):
         return self.key 
-    #TODO: lägga __str här = flaw? cus then can see key

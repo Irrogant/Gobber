@@ -32,13 +32,11 @@ def access(request):
 
     if request.method == "POST":
         form = AccessForm(request.POST)
-        print('posted:', request.POST.get('key'), type(request.POST.get('key')))
-        print('key', AccessKey.objects.first(), type(AccessKey.objects.first().__str__))
-    
+        print('posted:', request.POST.get('key'))
+        print('key', str(AccessKey.objects.first()))
         
-        #TODO: fix actual compare keys
-        if (request.POST.get('key')==AccessKey.objects.first()):
-            print('yo')
+        #TODO: ihan bad practice att convert to string
+        if (request.POST.get('key')==str(AccessKey.objects.first())):
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             print('fail')
