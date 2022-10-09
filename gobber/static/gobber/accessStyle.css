@@ -1,0 +1,18 @@
+h1 {
+    color: white;
+    text-align: center;
+}
+
+body {
+    background-color: black;
+}
+
+.cave {
+    padding: 10px 10px 10px 0;
+    height: 80vh;
+    background-image: url("/static/images/entrance_cave.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45%; 
+  
+}

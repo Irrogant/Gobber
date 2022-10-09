@@ -18,6 +18,3 @@ class MessageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Message, MessageAdmin)
-
-
-#Adding related objects¶

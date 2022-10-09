@@ -6,11 +6,12 @@ app_name = 'gobber'
 
 urlpatterns = [
 
-    #funkar för att display messages
-    #path('', views.IndexView.as_view(), name='index'),
+    # Accessing chats
+    path('', views.access, name='access'),
+    path('access/', views.access, name='access'),
 
-    #funkar för att put to database
-    path('', views.addChat, name='addChat'),
+    # Main view for chats
+    path('chats/', views.chats, name='chats'),
 
     #add login path
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),

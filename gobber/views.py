@@ -9,7 +9,7 @@ from .forms import MessageForm
 
 class IndexView(generic.ListView):
     #context_object_name provides which name to use for the list in the chosen template html
-    template_name = 'gobber/index.html'
+    template_name = 'gobber/chats.html'
     context_object_name = 'latest_message_list'
 
     def get_queryset(self):
@@ -28,10 +28,7 @@ class ResultsView(generic.DeleteView):
     model = Message
     template_name = 'gobber/results.html'
 
-
-#update 'chats' name to gobber, addChats becomes /chats
-
-def accessChat(reqest):
+def access(request):
 
     #ask for password
 
@@ -41,9 +38,9 @@ def accessChat(reqest):
     #else
         #return to same page, display OHNONO-message
 
-    return
+    return render(request, 'gobber/access.html')
 
-def addChat(request):
+def chats(request):
     print('post data is:', request.POST)
     messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
     
@@ -51,15 +48,13 @@ def addChat(request):
         #takes in form data and checks if it is valid
         form = MessageForm(request.POST)
         if form.is_valid():
-            #save to DB
-            #message = form.save()
-            #message.pub_date = timezone.now()
+            # Save to DB
             form.save()
-            #refresh page
-            return HttpResponseRedirect(reverse('gobber:addChat'))
+            # Refres page
+            return HttpResponseRedirect(reverse('gobber:chats'))
     else:
         form = MessageForm()
-    return render(request, 'gobber/index.html', {'messageList':messageList,'form': form})
+    return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
 
 
 def vote(request, message_id):

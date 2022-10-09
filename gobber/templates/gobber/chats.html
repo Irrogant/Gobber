@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Gobber</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.png' type='image/png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'gobber/chatStyle.css' %}">
+</head>
+
+<body>
+<div>
+    
+    <h1>GOBBER</h1>
+
+</div>
+
+<div class="leftSidebar">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+</div>
+
+
+<div class="rightSidebar">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+    <img src="/static/images/goblinwalk.gif">
+</div>
+
+<div class="chatField">
+
+    <div>
+        <h2>What's on your mind, fellow Goblin?</h2>
+        <!-- when button is clicked, data is posted-->
+        <form action="{% url 'gobber:chats' %}" method="post">
+            {% csrf_token %}
+                {{ form }}
+            <div class="chatButton">
+                <input  type="submit" value="Send"> 
+            </div>
+        </form>
+    </div>
+
+
+    <div>
+    {% if messageList %}
+        <ul class="chatList">
+        {% for message in messageList %}
+            <div class = "chatBox">
+                <li class="chatTime"> {{message.pub_date}} </li>
+                <li class="chatMessage"><a href="{% url 'gobber:detail' message.id %}"> {{message.message_text}} </a></li>
+            </div>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No chats are available.</p>
+    {% endif %}
+
+    </div>
+    
+</div>
+</body>
+</html>
+

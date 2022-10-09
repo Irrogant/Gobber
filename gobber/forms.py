@@ -10,6 +10,7 @@ class MessageForm(ModelForm):
     # message_text = forms.CharField(label='')
     # message_text = forms.CharField(widget=forms.Textarea, label='')
     
+    #TODO: clean input?
     class Meta:
         model = Message
 
@@ -26,15 +27,3 @@ class MessageForm(ModelForm):
         labels = {
             'message_text': '',
         }
-
-    
-
-
-
-# class ChatForm(forms.Form):
-#     chat = forms.CharField(label='Enter a message', max_length=200)
-
-#     def clean_chat(self):
-#         cleanChat = self.cleaned_data['chat']
-#         return cleanChat
-    
