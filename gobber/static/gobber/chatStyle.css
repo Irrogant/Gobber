@@ -14,6 +14,12 @@ h1 {
 
 h2 {
     color: white;
+    text-align: center;
+}
+
+p {
+    color: white;
+    text-align: center;
 }
 
 header {
@@ -33,6 +39,10 @@ body {
     background-image: url("/static/images/inside_cave.jpg");
     /* to remove scrollbar add hidden*/
     overflow: auto;
+}
+
+.btwText {
+    padding: 1px 0 0 0;
 }
 
 /* Sidebars */
@@ -72,7 +82,6 @@ textArea {
 .chatField {
     margin-left: 150px;
     margin-right: 150px;
-    background-color:rgb(32, 32, 32);
     padding: 20px 20px;
 }
 

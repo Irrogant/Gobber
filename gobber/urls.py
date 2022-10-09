@@ -8,7 +8,6 @@ urlpatterns = [
 
     # Accessing chats
     path('', views.access, name='access'),
-    path('access/', views.access, name='access'),
 
     # Main view for chats
     path('chats/', views.chats, name='chats'),
