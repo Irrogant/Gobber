@@ -29,7 +29,6 @@ class ResultsView(generic.DeleteView):
     template_name = 'gobber/results.html'
 
 def access(request):
-
     if request.method == "POST":
         form = AccessForm(request.POST)
         print('posted:', request.POST.get('key'))
@@ -37,39 +36,46 @@ def access(request):
         
         #TODO: ihan bad practice att convert to string
         if (request.POST.get('key')==str(AccessKey.objects.first())):
+            # make variable to access granted
+            request.session['access'] = True
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             print('fail')
             return HttpResponseRedirect(reverse('gobber:access'))
     else:
+        #TODO display OHNONONO message
+        request.session['access'] = False
         form = AccessForm()
     return render(request, 'gobber/access.html', {'form':form})
-
-    #if password == correct
-        #return gobbler/chats
-
-    #else
-        #return to same page, display OHNONO-message
-
-    return render(request, 'gobber/access.html')
 
 def chats(request):
     print('post data is:', request.POST)
     print('uägh', request.POST.get('message_text'))
-    messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
+
+    # Session variable cannot be modified by user
+    access = request.session.get('access','false')
+
+    if access:
+        messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
+        
+        if request.method == "POST":
+            #takes in form data and checks if it is valid
+            form = MessageForm(request.POST)
+            #TODO: what if invalid
+            if form.is_valid():
+                # Save to DB
+
+                form.save()
+                # Refresh page
+                return HttpResponseRedirect(reverse('gobber:chats'))
+        else:
+            form = MessageForm()
+        return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
     
-    if request.method == "POST":
-        #takes in form data and checks if it is valid
-        form = MessageForm(request.POST)
-        #TODO: what if invalid
-        if form.is_valid():
-            # Save to DB
-            form.save()
-            # Refresh page
-            return HttpResponseRedirect(reverse('gobber:chats'))
     else:
-        form = MessageForm()
-    return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
+       return HttpResponseRedirect(reverse('gobber:access'))
+
+    
 
 
 def vote(request, message_id):
