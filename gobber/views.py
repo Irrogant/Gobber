@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.db import connection
 
 from .models import Choice, Message, AccessKey
 from .forms import MessageForm, AccessForm
@@ -49,8 +50,8 @@ def access(request):
     return render(request, 'gobber/access.html', {'form':form})
 
 def chats(request):
-    print('post data is:', request.POST)
-    print('uägh', request.POST.get('message_text'))
+
+    cursor = connection.cursor()
 
     # Session variable cannot be modified by user
     access = request.session.get('access','false')
@@ -58,19 +59,36 @@ def chats(request):
     if access:
         messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
         
+        #query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
+        #messageList = Message.objects.raw(query)
         if request.method == "POST":
-            #takes in form data and checks if it is valid
+            # vulnerability: take request.POST och add manually to db
+            #I am future','2023-11-13 11:14:14.62259+00:00') --' to put future date
             form = MessageForm(request.POST)
-            #TODO: what if invalid
-            if form.is_valid():
-                # Save to DB
-
-                form.save()
-                # Refresh page
-                return HttpResponseRedirect(reverse('gobber:chats'))
+            messageText = (Message(message_text=request.POST.get('message_text')))
+            messageDate = timezone.now()
+            query2 = "INSERT INTO gobber_message (message_text, pub_date) VALUES ('%s','%s')" % (messageText, messageDate)
+            print(query2)
+            cursor.execute(query2)
+            return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             form = MessageForm()
         return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
+
+        # if request.method == "POST":
+        #     #takes in form data and checks if it is valid
+        #     form = MessageForm(request.POST)
+        #     print(form)
+        #     #TODO: what if invalid
+        #     if form.is_valid():
+        #         # Save to DB
+
+        #         form.save()
+        #         # Refresh page
+        #         return HttpResponseRedirect(reverse('gobber:chats'))
+        # else:
+        #     form = MessageForm()
+        # return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
     
     else:
        return HttpResponseRedirect(reverse('gobber:access'))
