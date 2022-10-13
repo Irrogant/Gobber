@@ -52,24 +52,30 @@ def access(request):
 def chats(request):
 
     cursor = connection.cursor()
-
     # Session variable cannot be modified by user
-    access = request.session.get('access','false')
 
-    if access:
+    access = request.session.get('access','false')
+    print(access)
+
+    if access==True:
         messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
-        
+        #TODO never closes connection
         #query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
         #messageList = Message.objects.raw(query)
         if request.method == "POST":
+            #TODO: handle input errors (but allow injections lol rip how)
             # vulnerability: take request.POST och add manually to db
-            #I am future','2023-11-13 11:14:14.62259+00:00') --' to put future date
+            #I am future','2023-11-13 11:14:14.62259+00:00') -- to put future date
             form = MessageForm(request.POST)
             messageText = (Message(message_text=request.POST.get('message_text')))
             messageDate = timezone.now()
             query2 = "INSERT INTO gobber_message (message_text, pub_date) VALUES ('%s','%s')" % (messageText, messageDate)
             print(query2)
-            cursor.execute(query2)
+            try: 
+                cursor.execute(query2)
+            except:
+                print('NO SPECIAL CHARACTERS')
+            cursor.close()
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             form = MessageForm()
@@ -89,7 +95,6 @@ def chats(request):
         # else:
         #     form = MessageForm()
         # return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
-    
     else:
        return HttpResponseRedirect(reverse('gobber:access'))
 
