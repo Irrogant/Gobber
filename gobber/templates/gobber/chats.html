@@ -51,7 +51,7 @@
         {% for message in messageList %}
             <div class = "chatBox">
                 <li class="chatTime"> {{message.pub_date}} </li>
-                <li class="chatMessage"><a href="{% url 'gobber:detail' message.id %}"> {{message.message_text}} </a></li>
+                <li class="chatMessage"><a> {{message.message_text}} </a></li>
             </div>
         {% endfor %}
         </ul>

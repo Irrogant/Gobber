@@ -11,4 +11,5 @@ urlpatterns = [
 
     # Main view for chats
     path('chats/', views.chats, name='chats'),
+    
 ]

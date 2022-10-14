@@ -35,8 +35,10 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: rgb(255, 181, 181);
-    background-image: url("/static/images/inside_cave.jpg");
+    background-color: rgb(0, 0, 0);
+    background-image: url("/static/images/backgroundcave.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
     /* to remove scrollbar add hidden*/
     overflow: auto;
 }

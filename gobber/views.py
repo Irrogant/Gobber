@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from django.views import generic
 from django.utils import timezone
 from django.db import connection
 
@@ -16,7 +15,7 @@ def access(request):
         
         #TODO: ihan bad practice att convert to string
         if (request.POST.get('key')==str(AccessKey.objects.first())):
-            # make variable to access granted
+            # Updating session key to allow access to /chats
             request.session['access'] = True
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
@@ -38,25 +37,22 @@ def access(request):
 
 def chats(request):
 
-    cursor = connection.cursor()
     # Session variable cannot be modified by user
-
     access = request.session.get('access','False')
-    print(access)
 
     if access == True:
-        messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
-        #query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
-        #messageList = Message.objects.raw(query)
+
+        # FLAWED: 
+        query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
+        messageList = Message.objects.raw(query)
+
         if request.method == "POST":
-            #TODO: handle input errors (but allow injections lol rip how)
-            # vulnerability: take request.POST och add manually to db
-            #I am future','2023-11-13 11:14:14.62259+00:00') -- to put future date
+
+            cursor = connection.cursor()
             form = MessageForm(request.POST)
             messageText = (Message(message_text=request.POST.get('message_text')))
             messageDate = timezone.now()
             query2 = "INSERT INTO gobber_message (message_text, pub_date) VALUES ('%s','%s')" % (messageText, messageDate)
-            print(query2)
             try: 
                 cursor.execute(query2)
             except:
@@ -65,13 +61,15 @@ def chats(request):
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             form = MessageForm()
+
         return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
 
+        # SECURITY FIX:
+
+        # messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
+
         # if request.method == "POST":
-        #     #takes in form data and checks if it is valid
         #     form = MessageForm(request.POST)
-        #     print(form)
-        #     #TODO: what if invalid
         #     if form.is_valid():
         #         # Save to DB
         #         form.save()
@@ -79,6 +77,8 @@ def chats(request):
         #         return HttpResponseRedirect(reverse('gobber:chats'))
         # else:
         #     form = MessageForm()
+
         # return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
+
     else:
        return HttpResponseRedirect(reverse('gobber:access'))
