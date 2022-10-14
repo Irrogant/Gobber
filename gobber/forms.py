@@ -6,7 +6,7 @@ from django.forms import ModelForm
 from gobber.models import AccessKey, Message
 
 class MessageForm(ModelForm):
-    #Making the input field larger
+    # Making the input field larger
     # message_text = forms.CharField(label='')
     # message_text = forms.CharField(widget=forms.Textarea, label='')
     

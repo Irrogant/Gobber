@@ -30,7 +30,7 @@ body {
 .cave {
     height: 50vh;
     background-size: 500px;
-    background-image: url("/static/images/entrance_cave.png");
+    background-image: url("/static/images/pixelcave.png");
     background-position: center;
     background-repeat: no-repeat;
 }

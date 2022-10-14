@@ -1,9 +1,5 @@
 from django.contrib import admin
-from .models import Choice, Message, AccessKey
-
-class ChoiceInline(admin.TabularInline):
-    model = Choice
-    extra = 3
+from .models import Message, AccessKey
 
 
 class MessageAdmin(admin.ModelAdmin):
@@ -11,7 +7,6 @@ class MessageAdmin(admin.ModelAdmin):
         (None,      {'fields': ['message_text']}),
         ('Dates',   {'fields': ['pub_date']}),
     ]
-    inlines = [ChoiceInline]
     list_display = ('message_text', 'pub_date', 'was_published_recently')
     list_filter = ['pub_date']
     search_fields = ['message_text']

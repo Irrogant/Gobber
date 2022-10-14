@@ -5,29 +5,8 @@ from django.views import generic
 from django.utils import timezone
 from django.db import connection
 
-from .models import Choice, Message, AccessKey
+from .models import Message, AccessKey
 from .forms import MessageForm, AccessForm
-
-class IndexView(generic.ListView):
-    #context_object_name provides which name to use for the list in the chosen template html
-    template_name = 'gobber/chats.html'
-    context_object_name = 'latest_message_list'
-
-    def get_queryset(self):
-        #return Message.objects.order_by('-pub_date')[:5]
-        return Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-
-class DetailView(generic.DetailView):
-    model = Message
-    template_name = 'gobber/detail.html'
-    
-    def get_queryset(self):
-        #TODO VULNERABILITY! remove access
-        return Message.objects.filter(pub_date__lte=timezone.now())
-
-class ResultsView(generic.DeleteView):
-    model = Message
-    template_name = 'gobber/results.html'
 
 def access(request):
     if request.method == "POST":
@@ -49,17 +28,24 @@ def access(request):
         form = AccessForm()
     return render(request, 'gobber/access.html', {'form':form})
 
+
+    #use get_object_or_404(?
+    # message = get_object_or_404(Message, pk=message_id)
+    # try:
+    #     selected_choice = message.choice_set.get(pk=request.POST['choice'])
+    # except (KeyError, Choice.DoesNotExist):
+    #     return render(request, 'gobber/detail.html', {'message':message, 'error_message': "Select a CHOICE stuoidass"})
+
 def chats(request):
 
     cursor = connection.cursor()
     # Session variable cannot be modified by user
 
-    access = request.session.get('access','false')
+    access = request.session.get('access','False')
     print(access)
 
-    if access==True:
+    if access == True:
         messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
-        #TODO never closes connection
         #query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
         #messageList = Message.objects.raw(query)
         if request.method == "POST":
@@ -88,7 +74,6 @@ def chats(request):
         #     #TODO: what if invalid
         #     if form.is_valid():
         #         # Save to DB
-
         #         form.save()
         #         # Refresh page
         #         return HttpResponseRedirect(reverse('gobber:chats'))
@@ -97,17 +82,3 @@ def chats(request):
         # return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
     else:
        return HttpResponseRedirect(reverse('gobber:access'))
-
-    
-
-
-def vote(request, message_id):
-    message = get_object_or_404(Message, pk=message_id)
-    try:
-        selected_choice = message.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        return render(request, 'gobber/detail.html', {'message':message, 'error_message': "Select a CHOICE stuoidass"})
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse('gobber:results',args=(message.id,)))

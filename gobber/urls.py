@@ -11,9 +11,4 @@ urlpatterns = [
 
     # Main view for chats
     path('chats/', views.chats, name='chats'),
-
-    #add login path
-    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
-    path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
-    path('<int:message_id>/vote/', views.vote, name='vote'),
 ]
