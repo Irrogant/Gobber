@@ -1,7 +1,7 @@
- @font-face {
+@font-face {
     font-family: "PixelFont";
     src: url("/static/fonts/04B_03__.TTF");
- }
+}
 
 li a { 
     color: blueviolet;
@@ -45,6 +45,22 @@ body {
 
 .btwText {
     padding: 1px 0 0 0;
+}
+
+ul.messages {
+    list-style-type: none;
+
+    position: absolute;
+    width: 300px;
+    left: 56%;
+    right: 44%;
+    top: 236px;
+}
+
+ul.messages li.error {
+    text-align: center;
+    color: rgb(43, 255, 0);
+    font-size: 16px;
 }
 
 /* Sidebars */

@@ -3,6 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.db import connection
+from django.contrib import messages
+
+import random, time
 
 from .models import Message, AccessKey
 from .forms import MessageForm, AccessForm
@@ -17,12 +20,14 @@ def access(request):
         if (request.POST.get('key')==str(AccessKey.objects.first())):
             # Updating session key to allow access to /chats
             request.session['access'] = True
+            # Sleeping
+            time.sleep(1)
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
-            print('fail')
+            # Display failure message
+            messages.error(request, random.choice(["Think ya can fool me?!","That's wrong, innit?", "GET OUTTA HERE YOU LIL' PRICK!", "Yer getting on me nerves!"]))
             return HttpResponseRedirect(reverse('gobber:access'))
     else:
-        #TODO display OHNONONO message
         request.session['access'] = False
         form = AccessForm()
     return render(request, 'gobber/access.html', {'form':form})
@@ -56,7 +61,7 @@ def chats(request):
             try: 
                 cursor.execute(query2)
             except:
-                print('NO SPECIAL CHARACTERS')
+                messages.error(request, "NO SPECIAL CHARACTERS ALLOWED")
             cursor.close()
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
@@ -81,4 +86,4 @@ def chats(request):
         # return render(request, 'gobber/chats.html', {'messageList':messageList,'form': form})
 
     else:
-       return HttpResponseRedirect(reverse('gobber:access'))
+        return HttpResponseRedirect(reverse('gobber:access'))

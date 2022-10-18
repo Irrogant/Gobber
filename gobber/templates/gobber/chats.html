@@ -32,6 +32,14 @@
 
 <div class="chatField">
 
+    {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}"> {{ message }} </li>
+                {% endfor %}
+            </ul>
+    {% endif %}
+
     <div>
         <h2>GIBBER AND GABBER WITH OTHER GOBLINS</h2>
         <!-- when button is clicked, data is posted-->
@@ -61,8 +69,8 @@
 
     </div>
 
-    <div class="btwTexte">
-        <p>100% ANONYMOUS AND ISOLATED CHATTING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS IN THE CAVE.</p>
+    <div class="btwText">
+        <p>100% ANONYMOUS AND ISOLATED CHATTING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS INSIDE THE CAVE.</p>
     </div>
     
 </div>

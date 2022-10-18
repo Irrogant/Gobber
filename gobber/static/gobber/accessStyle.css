@@ -1,12 +1,35 @@
 @font-face {
     font-family: "PixelFont";
     src: url("/static/fonts/04B_03__.TTF");
- }
+}
  
 h1 {
     color: white;
     font-size: 80px;
+    margin-bottom: 80px;
+}
+
+ul.messages {
+    list-style-type: none;
+
+    position: absolute;
+    left: 55%;
+    right: 45%;
+    top: 420px;
+    
+    width: 160px;
+    height: 100px;
+
+    background-size: 200px;
+    background-image: url("/static/images/speech_bubble.png");
+    background-repeat: no-repeat;
+}
+
+ul.messages li.error {
     text-align: center;
+    margin-top: 20px;
+    margin-right: 35px;
+    color: black;
 }
 
 input {
@@ -19,24 +42,34 @@ body {
 }
 
 .middleField {
-    padding: 20px 20px;
+    margin-left: 10%;
+    margin-right: 10%;
     text-align: center;
+}
+
+.messageBox {
+    position: absolute;
+    width: 500px;
 }
 
 .keyField {
     padding: 80px 0 0 0;
 }
 
-.cave {
-    height: 50vh;
-    background-size: 500px;
-    background-image: url("/static/images/pixelcave.png");
-    background-position: center;
-    background-repeat: no-repeat;
+.goblin {
+    margin-top: 50%;
+    margin-left: 18%;
+    margin-right: auto;
 }
 
-.goblin {
-    padding: 240px 0 0 0;
+.cave {
+    width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto; 
+    background-image: url("/static/images/pixelcave.png");
+    background-size: 500px;
+    background-repeat: no-repeat;
 }
 
 .sendButton {

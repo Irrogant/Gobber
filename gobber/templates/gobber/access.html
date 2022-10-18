@@ -14,10 +14,21 @@
 
     <h1>GOBBER</h1>
 
-    <div class="cave">
-        <img class="goblin" src="/static/images/goblinguard.gif">
-    </div> 
+</div>
 
+<div class="cave">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}"> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <img class="goblin" src="/static/images/goblinguard.gif">
+</div>        
+
+
+<div class="middleField">
     <div class="keyField">
         <form action="{% url 'gobber:access' %}" method="post">
             {% csrf_token %}
@@ -27,8 +38,10 @@
             </div>
         </form>
     </div>
-
 </div>
+    
+</div>
+
 
 
 </body>
