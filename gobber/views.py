@@ -11,18 +11,26 @@ from .models import Message, AccessKey
 from .forms import MessageForm, AccessForm
 
 def access(request):
+    
+    # Default value for session counter is set to 0 if none has been initliazed
+    accessCount = request.session.setdefault('accessCount',0)
+
     if request.method == "POST":
         form = AccessForm(request.POST)
         #TODO: ihan bad practice att convert to string
         if (request.POST.get('key')==str(AccessKey.objects.first())):
             # Updating session key to allow access to /chats
             request.session['access'] = True
+            request.session['accessCount'] = 0
             # Sleeping
             time.sleep(1)
             return HttpResponseRedirect(reverse('gobber:chats'))
         else:
             # Display failure message
             messages.error(request, random.choice(["Think ya can fool me?!","That's wrong, innit?", "GET OUTTA HERE YOU LIL' PRICK!", "Yer getting on me nerves!"]))
+            request.session['accessCount'] += 1
+            if accessCount > 2:
+                time.sleep(5)
             return HttpResponseRedirect(reverse('gobber:access'))
     else:
         request.session['access'] = False
@@ -39,7 +47,7 @@ def access(request):
 
 def chats(request):
 
-    # Session variable cannot be modified by user
+    # If no access variable is found, the value is set to False
     access = request.session.get('access','False')
 
     if access == True:
