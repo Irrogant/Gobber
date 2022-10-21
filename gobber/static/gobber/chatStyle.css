@@ -3,10 +3,6 @@
     src: url("/static/fonts/04B_03__.TTF");
 }
 
-li a { 
-    color: blueviolet;
-}
-
 h1 {
     color: white;
     text-align: center;
@@ -36,30 +32,41 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgb(0, 0, 0);
-    background-image: url("/static/images/backgroundcave.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
     /* to remove scrollbar add hidden*/
     overflow: auto;
 }
 
-.btwText {
-    padding: 1px 0 0 0;
+/* Background */
+
+.background {
+    background-image: url("/static/images/stalelite_ups.png"), url("/static/images/stalelite_downs.png");
+    background-repeat: no-repeat;
+    background-size: 100%, 100%, 125%;
+    background-attachment: fixed, fixed, fixed;
+    background-position: top, bottom;
+} 
+
+
+/* Messages */
+
+.messageField {
+    height: 30px;
+    margin-top: 16px;
 }
 
 ul.messages {
     list-style-type: none;
+    padding-left: 0;
 
-    position: absolute;
-    width: 300px;
-    left: 56%;
-    right: 44%;
-    top: 236px;
+    width: 100%;
 }
 
 ul.messages li.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    color: rgb(43, 255, 0);
+    color: rgb(102, 167, 92);
     font-size: 16px;
 }
 
@@ -67,7 +74,7 @@ ul.messages li.error {
 
 .leftSidebar {
     height: 100%;
-    width: 150px;
+    width: 20%;
     position: absolute;
     left: 0;
     top: 0;
@@ -76,7 +83,7 @@ ul.messages li.error {
 
 .rightSidebar {
     height: 100%;
-    width: 150px;
+    width: 20%;
     position: absolute;
     right: 0;
     top: 0;
@@ -85,6 +92,10 @@ ul.messages li.error {
 
 /* Form */
 
+.btwText {
+    margin-top: 60px;
+}
+
 textArea {
     width: 99.5%;
     resize: none;
@@ -92,14 +103,18 @@ textArea {
 
 /* Chatbox */
 
+.chatMessageField {
+    margin-top: 60px;
+}
+
 .chatList {
     list-style-type: none;
     padding-left: 0;
 }
 
 .chatField {
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 20%;
+    margin-right: 20%;
     padding: 20px 20px;
 }
 
@@ -126,4 +141,33 @@ textArea {
     text-align: right;
 }
 
+/* Animations */
 
+.runningGoblins {
+
+}
+
+@keyframes goblin-walk {
+    0% {
+      transform: translateX(67%) ;
+    }
+    49% {
+      transform: translateX(700%);
+    }
+    50% {
+        transform: translateX(700%)  rotateY(180deg);
+      }
+    99% {
+        transform: translateX(67%)  rotateY(180deg);
+    }
+    100% {
+        transform: translateX(67%);
+    }
+  }
+  
+  /* The element to apply the animation to */
+  .goblin {
+    animation-name: goblin-walk;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+  }

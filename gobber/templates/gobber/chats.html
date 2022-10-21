@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'gobber/chatStyle.css' %}">
 </head>
 
-<body>
+<body class="background">
+
 <div>
     
     <h1>GOBBER</h1>
@@ -16,33 +17,18 @@
 </div>
 
 <div class="leftSidebar">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
 </div>
 
 
 <div class="rightSidebar">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
-    <img src="/static/images/goblinwalk.gif">
 </div>
 
 <div class="chatField">
 
-    {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li class="{{ message.tags }}"> {{ message }} </li>
-                {% endfor %}
-            </ul>
-    {% endif %}
+    <div class="chatMessageField"> 
 
-    <div>
         <h2>GIBBER AND GABBER WITH OTHER GOBLINS</h2>
-        <!-- when button is clicked, data is posted-->
+        <!-- When button is clicked, data is posted-->
         <form action="{% url 'gobber:chats' %}" method="post">
             {% csrf_token %}
                 {{ form }}
@@ -52,6 +38,19 @@
         </form>
     </div>
 
+    <div class="messageField"> 
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <div>
+            <li class="{{ message.tags }}"> <img src="/static/images/goblin_attack_right.gif"> {{ message }} <img src="/static/images/goblin_attack_left.gif"> </li>
+            </div>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
 
     <div>
     {% if messageList %}
@@ -66,11 +65,10 @@
     {% else %}
         <p>No chats are available.</p>
     {% endif %}
-
     </div>
 
     <div class="btwText">
-        <p>100% ANONYMOUS AND ISOLATED CHATTING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS INSIDE THE CAVE.</p>
+        <p>100% ANONYMOUS AND ISOLATED MESSAGING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS INSIDE THE CAVE.</p>
     </div>
     
 </div>

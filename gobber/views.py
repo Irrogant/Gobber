@@ -13,9 +13,6 @@ from .forms import MessageForm, AccessForm
 def access(request):
     if request.method == "POST":
         form = AccessForm(request.POST)
-        print('posted:', request.POST.get('key'))
-        print('key', str(AccessKey.objects.first()))
-        
         #TODO: ihan bad practice att convert to string
         if (request.POST.get('key')==str(AccessKey.objects.first())):
             # Updating session key to allow access to /chats
@@ -33,7 +30,7 @@ def access(request):
     return render(request, 'gobber/access.html', {'form':form})
 
 
-    #use get_object_or_404(?
+    #use get_object_or_404()
     # message = get_object_or_404(Message, pk=message_id)
     # try:
     #     selected_choice = message.choice_set.get(pk=request.POST['choice'])
@@ -48,7 +45,7 @@ def chats(request):
     if access == True:
 
         # FLAWED: 
-        query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 7'
+        query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 12'
         messageList = Message.objects.raw(query)
 
         if request.method == "POST":
@@ -71,7 +68,7 @@ def chats(request):
 
         # SECURITY FIX:
 
-        # messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:7]
+        # messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:12]
 
         # if request.method == "POST":
         #     form = MessageForm(request.POST)
