@@ -1,5 +1,3 @@
-from email import message
-from pdb import post_mortem
 from django import forms
 
 from django.forms import ModelForm
@@ -7,7 +5,6 @@ from gobber.models import AccessKey, Message
 
 class MessageForm(ModelForm):
     
-    #TODO: clean input?
     class Meta:
         model = Message
 
@@ -31,6 +28,7 @@ class AccessForm(ModelForm):
 
         fields = ['key']
 
+        # Hiding user input
         widgets = {
             'key': forms.PasswordInput(),
         }

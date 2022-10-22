@@ -143,10 +143,6 @@ textArea {
 
 /* Animations */
 
-.runningGoblins {
-
-}
-
 @keyframes goblin-walk {
     0% {
       transform: translateX(67%) ;
@@ -165,7 +161,6 @@ textArea {
     }
   }
   
-  /* The element to apply the animation to */
   .goblin {
     animation-name: goblin-walk;
     animation-duration: 10s;

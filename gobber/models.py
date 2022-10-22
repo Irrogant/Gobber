@@ -1,6 +1,3 @@
-from unittest.util import _MAX_LENGTH
-from django.utils import timezone
-import datetime
 from django.db import models
 
 class Message(models.Model):
@@ -14,6 +11,5 @@ class Message(models.Model):
 class AccessKey(models.Model):
     key = models.CharField(max_length=10)
 
-    #TODO prob should not exist
     def __str__(self):
         return self.key 
