@@ -3,7 +3,7 @@ from .models import Message, AccessKey
 
 
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('message_text', 'pub_date', 'was_published_recently')
+    list_display = ('message_text', 'pub_date')
     list_filter = ['pub_date']
     search_fields = ['message_text']
 
