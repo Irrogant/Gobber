@@ -22,7 +22,7 @@ def access(request):
         # Get form input
         form = AccessForm(request.POST)
        
-        # FLAW #3 FIX
+        # FLAW #5 FIX
         # ------------------------------------------------------------------------------------------------
         # if form.is_valid():
         # ------------------------------------------------------------------------------------------------
@@ -38,6 +38,7 @@ def access(request):
 
             # FLAW #2 FIX
             # ------------------------------------------------------------------------------------------------
+            # # Session counter is reset
             # request.session['accessCount'] = 0
             # ------------------------------------------------------------------------------------------------
 
@@ -76,7 +77,7 @@ def chats(request):
     # FLAW #3
     # ------------------------------------------------------------------------------------------------
     # Create query and fetch published messages
-    query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 12'
+    query = 'SELECT * FROM gobber_message ORDER BY pub_date DESC LIMIT 10'
     messageList = Message.objects.raw(query)
 
     if request.method == "POST":
@@ -87,7 +88,11 @@ def chats(request):
         messageDate = timezone.now()
         # Create insert query for database
         query = "INSERT INTO gobber_message (message_text, pub_date) VALUES ('%s','%s')" % (messageText, messageDate)
+        
+        # FLAW #5
+        # ------------------------------------------------------------
         cursor.execute(query)
+        # ------------------------------------------------------------
 
         # FLAW #5 FIX
         # ------------------------------------------------------------
@@ -109,7 +114,7 @@ def chats(request):
     # FLAW #3 FIX
     # ------------------------------------------------------------------------------------------------
     # # Fetch recently published messages, allowing no messages published before the current time 
-    # messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:12]
+    # messageList = Message.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:10]
     #
     # if request.method == "POST":
     #     form = MessageForm(request.POST)

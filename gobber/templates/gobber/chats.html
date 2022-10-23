@@ -8,70 +8,82 @@
     <link rel="stylesheet" type="text/css" href="{% static 'gobber/chatStyle.css' %}">
 </head>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <body class="background">
 
-<div>
-    
-    <h1>GOBBER</h1>
+<div class="upperSection">
 
-</div>
+    <div class="middleField">
 
-<div class="leftSidebar">
-    <img class="goblin" src="/static/images/bat.gif">
-</div>
+        <h1>GOBBER</h1>
 
-
-<div class="rightSidebar">
-</div>
-
-<div class="chatField">
-
-    <div class="chatMessageField"> 
-
-        <h2>GIBBER AND GABBER WITH OTHER GOBLINS</h2>
-        <!-- When button is clicked, data is posted-->
-        <form action="{% url 'gobber:chats' %}" method="post">
-            {% csrf_token %}
-                {{ form }}
-            <div class="chatButton">
-                <input type="submit" value="Send"> 
+        <div class="chatMessageField"> 
+            <div class="aligned">
+                <img src="/static/images/goblin_attack_right.gif">
+                <h2>WHAT IS ON YOUR MIND?</h2>
+                <img src="/static/images/goblin_attack_left.gif">
             </div>
-        </form>
+            <!-- When button is clicked, data is posted -->
+            <form action="{% url 'gobber:chats' %}" method="post">
+                {% csrf_token %}
+                    {{ form }}
+                <div class="chatButton">
+                    <input type="submit" value="Send"> 
+                </div>
+            </form>
+        </div>
+
+        <!-- Displaying error messages -->
+        <div class="messageField"> 
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <div>
+                <li class="{{ message.tags }}"> <img src="/static/images/goblin_death.gif"> {{ message }} <img src="/static/images/goblin_death.gif"> </li>
+                </div>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
     </div>
+</div>
 
-    <div class="messageField"> 
+<div class="lowerSection">
 
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <div>
-            <li class="{{ message.tags }}"> <img src="/static/images/goblin_attack_right.gif"> {{ message }} <img src="/static/images/goblin_attack_left.gif"> </li>
-            </div>
+    <div class="middleField">
+
+        <div class="aligned">
+        <img class="goblinleft" src="/static/images/goblin_run_left.gif">
+        <h2>THE LATEST GIBBER AND GABBER</h2>
+        <img class="goblinright" src="/static/images/goblin_run_right.gif">
+        </div>
+
+        <div>
+        {% if messageList %}
+            <ul class="chatList">
+            {% for message in messageList %}
+                <div class = "chatBox">
+                    <li class="chatTime"> {{message.pub_date}} </li>
+                    <li class="chatMessage"><a> {{message.message_text}} </a></li>
+                </div>
             {% endfor %}
-        </ul>
+            </ul>
+        {% else %}
+            <p>No chats are available.</p>
         {% endif %}
+        </div>
 
-    </div>
+        <div class="aligned">
+            <img src="/static/images/goblin_attack_right.gif">
+            <img src="/static/images/goblin_death.gif">
+            <img src="/static/images/goblin_attack_left.gif">
+        </div>
 
-    <div>
-    {% if messageList %}
-        <ul class="chatList">
-        {% for message in messageList %}
-            <div class = "chatBox">
-                <li class="chatTime"> {{message.pub_date}} </li>
-                <li class="chatMessage"><a> {{message.message_text}} </a></li>
-            </div>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No chats are available.</p>
-    {% endif %}
+            <p>100% ANONYMOUS AND ISOLATED MESSAGING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS INSIDE THE CAVE.</p>
     </div>
-
-    <div class="btwText">
-        <p>100% ANONYMOUS AND ISOLATED MESSAGING. ONLY REAL GOBLINS LET INSIDE. WHAT HAPPENS IN THE CAVE STAYS INSIDE THE CAVE.</p>
-    </div>
-    
+</div>
 </div>
 </body>
 </html>

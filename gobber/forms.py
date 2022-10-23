@@ -13,7 +13,12 @@ class MessageForm(ModelForm):
         
         # Customizing textarea
         widgets = {
-            'message_text': forms.Textarea(attrs={'rows': 5,})
+            'message_text': forms.Textarea(attrs={
+                                                    'rows': 5, 
+                                                    'style': 'background-color:rgb(139, 137, 134); font-family:PixelFont',
+                                                    }),
+
+
         }
 
         # Removing label
