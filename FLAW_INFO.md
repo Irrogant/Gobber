@@ -1,5 +1,6 @@
 GOBBER
 
+Gobber is a chat forum made exclusively for goblins. The application has an access page where visitors need to insert the secret password to access the chat page.
 _________________________________________________________________________________________________________________________________________________________________
 
 
