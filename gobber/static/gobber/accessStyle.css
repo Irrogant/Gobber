@@ -4,10 +4,19 @@
 }
  
 h1 {
-    color: white;
+    color: rgb(214, 214, 214);
     font-size: 80px;
     margin-bottom: 80px;
 }
+
+/* Background */
+
+body {
+    font-family: "PixelFont";
+    background-color: rgb(24, 24, 24);
+}
+
+/* Messages */
 
 ul.messages {
     list-style-type: none;
@@ -32,14 +41,13 @@ ul.messages li.error {
     color: black;
 }
 
-input {
-    font-family: "PixelFont";
+.messageBox {
+    position: absolute;
+    width: 500px;
 }
 
-body {
-    font-family: "PixelFont";
-    background-color: black;
-}
+/* Fields and sections */
+
 
 .middleField {
     margin-left: 10%;
@@ -47,14 +55,22 @@ body {
     text-align: center;
 }
 
-.messageBox {
-    position: absolute;
-    width: 500px;
-}
+/* Form */
 
 .keyField {
     padding: 80px 0 0 0;
 }
+
+input {
+    font-family: "PixelFont";
+}
+
+.sendButton {
+    margin: 5px;
+}
+
+/* Art */
+
 
 .goblin {
     margin-top: 50%;
@@ -72,6 +88,4 @@ body {
     background-repeat: no-repeat;
 }
 
-.sendButton {
-    margin: 5px;
-}
+

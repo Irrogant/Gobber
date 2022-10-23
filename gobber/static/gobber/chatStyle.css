@@ -16,6 +16,8 @@ img {
     max-height:100%;
 }
 
+/* Background */
+
 body {
     color: rgb(214, 214, 214);
     text-align: center;
@@ -28,8 +30,6 @@ body {
     /* To remove scrollbar add hidden */
     overflow: auto;
 }
-
-/* Background */
 
 .background {
     background-image:
