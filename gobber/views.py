@@ -59,7 +59,10 @@ def access(request):
 
             return HttpResponseRedirect(reverse('gobber:access'))
     else:
-        request.session['access'] = False
+        # FLAW #1 FIX
+        # ------------------------------------------------------------------------------------------------
+        # request.session['access'] = False
+        # ------------------------------------------------------------------------------------------------
         form = AccessForm()
     return render(request, 'gobber/access.html', {'form':form})
 
@@ -71,7 +74,7 @@ def chats(request):
     # access = request.session.get('access','False')
     #
     # # Only allows access if session variable is set to true
-    #if access == True:
+    # if access == True:
     # ------------------------------------------------------------------------------------------------
 
     # FLAW #3
