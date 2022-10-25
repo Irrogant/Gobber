@@ -1,6 +1,6 @@
 # **GOBBER**
 
-Gobber is a chat forum made exclusively for goblins. The application has an access page where visitors need to insert the secret password to access the chat page.
+Gobber is a chat forum made exclusively for goblins. The web application has an access page which requires visitors to insert a secret password in order to access the chat page.
 _________________________________________________________________________________________________________________________________________________________________
 
 The application is created using Django 4.0.2 and Python 3.8.10 in Linux. It can be launched in the terminal by locating the “Gobber” folder and running the command
