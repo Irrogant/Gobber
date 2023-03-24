@@ -100,9 +100,9 @@ def chats(request):
         # FLAW #5 FIX
         # ------------------------------------------------------------
         # try: 
-        #    cursor.execute(query)
+        #     cursor.execute(query)
         # except:
-        #    messages.error(request, "NO SPECIAL CHARACTERS ALLOWED")
+        #     messages.error(request, "NO SPECIAL CHARACTERS ALLOWED")
         # ------------------------------------------------------------
 
         # Close database connection
