@@ -94,15 +94,15 @@ def chats(request):
         
         # FLAW #5
         # ------------------------------------------------------------
-        # cursor.execute(query)
+        cursor.execute(query)
         # ------------------------------------------------------------
 
         # FLAW #5 FIX
         # ------------------------------------------------------------
-        try: 
-            cursor.execute(query)
-        except:
-            messages.error(request, "NO SPECIAL CHARACTERS ALLOWED")
+        # try: 
+        #    cursor.execute(query)
+        # except:
+        #    messages.error(request, "NO SPECIAL CHARACTERS ALLOWED")
         # ------------------------------------------------------------
 
         # Close database connection
