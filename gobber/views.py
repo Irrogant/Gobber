@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.utils import timezone
 from django.db import connection
 from django.contrib import messages
+from django.core.management import call_command
+
 
 import random, time
 
@@ -67,6 +69,10 @@ def access(request):
     return render(request, 'gobber/access.html', {'form':form})
 
 def chats(request):
+    # Populate the database with dummy data
+    if not request.session.get("fixture_loaded"):
+        call_command("loaddata", "dbdata.json")
+        request.session['fixture_loaded'] = True
 
     # FLAW #1 FIX
     # ------------------------------------------------------------------------------------------------
